@@ -1,12 +1,24 @@
-import React, { useState } from "react";
+import { useState } from "react"; // ✅ only import what's used
 import { QRCodeSVG } from "qrcode.react";
 
 const API_URL = "https://swoogo-new-api.azurewebsites.net/api/SwoogoFunction?code=ZZNDVIrOZJt-WvNDYPfW_cnkJfftQr9w5DAeA95cHQ-gAzFuCCLjUw==";
 
+// ✅ Move type definition here (outside the component)
+type Attendee = {
+  first_name: string;
+  last_name: string;
+  email: string;
+  company?: string;
+  secure_id: string;
+  reg_type_id?: { value: string };
+  [key: string]: any; // allows extra fields like age, city, etc.
+};
+
+
 export default function App() {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
-  const [attendee, setAttendee] = useState(null);
+  const [attendee, setAttendee] = useState<Attendee | null>(null);
   const [error, setError] = useState("");
   const [showMore, setShowMore] = useState(false);
 
